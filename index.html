@@ -50,13 +50,25 @@
         event.preventDefault();
         x = event.touches[0].clientX - joystickContainer.offsetLeft + 175;
         y = event.touches[0].clientY - joystickContainer.offsetTop + 175;
-        joystick.style.left = x + 'px';
-        joystick.style.top = y + 'px';
+        if (x > 115 && x < 235 && y > 115 && y < 235) {
+          joystick.style.left = x + 'px';
+          joystick.style.top = y + 'px';
+          info.innerHTML = `<h3>X:${x} Y:${y}</h3>`;
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', `/?posX=${x}&posY=${y}`, true);
+        xhr.send();
       });
 
       joystickContainer.addEventListener('touchend', () => {
         joystick.style.left = '50%';
         joystick.style.top = '50%';
+        x = 0;
+        y = 0;
+        info.innerHTML = `<h3>X:${x} Y:${y}</h3>`;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', `/?posX=${x}&posY=${y}`, true);
+        xhr.send();
       });
 
       info.innerHTML = `<h3>X:${x} Y:${y}</h3>`;
