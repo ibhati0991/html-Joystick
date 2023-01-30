@@ -33,6 +33,9 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
+      body {
+        overflow: hidden; /* Hide scrollbars */
+      }
     </style>
     <div id="joystick-container">
       <div id="joystick"></div>
@@ -46,10 +49,10 @@
       var x = 0;
       var y = 0;
 
-      joystickContainer.addEventListener('touchmove', (event) => {
+      joystickContainer.addEventListener('pointermove', (event) => {
         event.preventDefault();
-        x = event.touches[0].clientX - joystickContainer.offsetLeft + 175;
-        y = event.touches[0].clientY - joystickContainer.offsetTop + 175;
+        x = event.clientX - joystickContainer.offsetLeft + 175;
+        y = event.clientY - joystickContainer.offsetTop + 175;
         if (x > 115 && x < 235 && y > 115 && y < 235) {
           joystick.style.left = x + 'px';
           joystick.style.top = y + 'px';
@@ -60,7 +63,7 @@
         xhr.send();
       });
 
-      joystickContainer.addEventListener('touchend', () => {
+      joystickContainer.addEventListener('pointerout', () => {
         joystick.style.left = '50%';
         joystick.style.top = '50%';
         x = 0;
